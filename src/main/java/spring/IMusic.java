@@ -1,6 +1,6 @@
 package spring;
 
 public interface IMusic {
-    String getSong();
-    String getAuthor();
+    String getSongList(int number);
+    void setSongList();
 }

@@ -1,25 +1,24 @@
 package spring;
 
-public class ClassicalMusic implements IMusic{
-    private ClassicalMusic(){}
+import org.springframework.stereotype.Component;
 
-    public static ClassicalMusic getClassicalMusic(){
-        return new ClassicalMusic();
-    }
-    public void doMyInit(){
-        System.out.println("doing my initialization");
-    }
+import java.util.ArrayList;
+import java.util.List;
 
-    public void doMyDestroy(){
-        System.out.println("doing my destroying");
-    }
-    @Override
-    public String getSong() {
-        return "Moonlight Sonata";
+@Component
+public class ClassicalMusic implements IMusic {
+    private List<String> songList = new ArrayList<>();
+
+    public void setSongList() {
+        songList.add("Eine kleine Nachtmusik");
+        songList.add("Für Elise");
+        songList.add("'O mio babbino caro' from Gianni Schicchi");
     }
 
     @Override
-    public String getAuthor() {
-        return "Ludwig van Beethoven";
+    public String getSongList(int number) {
+        setSongList();
+        return songList.get(number);
     }
+
 }

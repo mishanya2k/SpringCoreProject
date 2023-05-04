@@ -1,41 +1,32 @@
 package spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import java.util.Random;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class MusicPlayer {
+    private IMusic music1;
+    private IMusic music2;
 
-
-    private List<IMusic> musicList = new ArrayList<>();
-    private String name;
-    private int volume;
-
-    public void setMusicList(List<IMusic> musicList) {
-        this.musicList = musicList;
+    @Autowired
+    public MusicPlayer(@Qualifier("classicalMusic") IMusic music1, @Qualifier("rockMusic") IMusic music2) {
+        this.music1 = music1;
+        this.music2 = music2;
     }
 
-    public void playMusic() {
-        for (IMusic music : musicList) {
-            System.out.println("Playing " + music.getSong() + " by " + music.getAuthor());
-        }
+    public String playMusic(MusicGenre genre) {
+        Random random = new Random();
+        int number = random.nextInt(3);
+        if (genre == MusicGenre.CLASSICAL) {
+            return  music1.getSongList(number);
+        } else
+            return  music2.getSongList(number);
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
-
 }
+
 
